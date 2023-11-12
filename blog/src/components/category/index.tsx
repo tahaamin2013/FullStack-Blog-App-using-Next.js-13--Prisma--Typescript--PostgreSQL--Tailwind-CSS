@@ -17,10 +17,17 @@ export default function CategoryList({ list }: { list: Blog[] }) {
   console.log(getMaxId);
 
   const getLatestBlogForCurrentCategory =
-    list && list.length ? list.find((item) => item.id === getMaxId) : null;
+    list && list.length ? list.find((item) => item.id !== getMaxId) : null;
 
   const relatedBlogs =
     list && list.length ? list.filter((item) => item.id !== getMaxId) : [];
+
+  // Exclude the latest blog from the related blogs list
+  const currentCategoryId = getLatestBlogForCurrentCategory?.id;
+  const filteredRelatedBlogs =
+    relatedBlogs && relatedBlogs.length
+      ? relatedBlogs.filter((item) => item.id !== currentCategoryId)
+      : [];
 
   return (
     <>
@@ -31,7 +38,7 @@ export default function CategoryList({ list }: { list: Blog[] }) {
               {getLatestBlogForCurrentCategory === null ? (
                 <div className="flex flex-col gap-4">
                   <h2 className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
-                    No blog available for this category ! please create one
+                    No blog available for this category! Please create one
                   </h2>
                   <Button
                     text="Create New Blog"
@@ -40,8 +47,8 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                 </div>
               ) : (
                 <div>
-                  <h2 className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
-                    {getLatestBlogForCurrentCategory?.title}
+                  <h2 style={{ wordWrap: 'break-word' }} className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
+                    {getLatestBlogForCurrentCategory?.title} 
                   </h2>
                   <div className="mb-10 w-full overflow-hidden rounded">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
@@ -53,7 +60,8 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                       />
                     </div>
                   </div>
-                  <p className="mb-8 leading-relaxed text-base font-medium text-body-color sm:text-lg lg:text-base xl:text-lg">
+                  <p style={{ wordWrap: 'break-word' }} className="mb-8 leading-relaxed text-base font-medium text-body-color sm:text-lg lg:text-base xl:text-lg whitespace-normal">
+                    {/* Add the whitespace-normal class above */}
                     {getLatestBlogForCurrentCategory?.description}
                   </p>
                 </div>
@@ -68,7 +76,9 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                   {categories.map((catItem) => (
                     <button
                       onClick={() => router.push(`/category/${catItem.value}`)}
-                      className="mr-3 mb-3 inline-flex items-center justify-center rounded-md bg-primary py-2 px-4 text-white duration-300">
+                      className="mr-3 mb-3 inline-flex items-center justify-center rounded-md bg-primary py-2 px-4 text-white duration-300"
+                      key={catItem.value}
+                    >
                       {catItem.label}
                     </button>
                   ))}
@@ -79,8 +89,8 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                   Related Blogs
                 </h3>
                 <ul className="p-8">
-                  {relatedBlogs && relatedBlogs.length ? (
-                    relatedBlogs.map((item) => (
+                  {filteredRelatedBlogs && filteredRelatedBlogs.length ? (
+                    filteredRelatedBlogs.map((item) => (
                       <li
                         className="mb-6 border-b border-body-color border-opacity-10 pb-6 dark:border-white dark:border-opacity-10"
                         key={item.id}
@@ -94,8 +104,9 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                           <div className="w-full">
                             <h5>
                               <Link
+                              
                                 href={"/"}
-                                className="mb-[8px] block text-base font-medium text-black dark:text-white hover:text-primary dark:hover:text-primary"
+                                className="mb-[8px] truncate w-[200px] block text-base font-medium text-black dark:text-white hover:text-primary dark:hover:text-primary"
                               >
                                 {item.title}
                               </Link>

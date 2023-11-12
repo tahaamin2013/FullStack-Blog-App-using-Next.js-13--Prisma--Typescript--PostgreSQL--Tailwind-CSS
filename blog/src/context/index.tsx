@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { useSession } from "next-auth/react";
-import Spinner from "@/components/spinner";
+import Loader from "@/components/spinner/index";
 import { Blog, BlogFormData } from "@/utils/types";
 import { initialBlogFormData } from "@/utils";
 import { usePathname, useRouter } from "next/navigation";
@@ -46,7 +46,7 @@ export default function GlobalState({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
 
-  if (session === undefined) return <Spinner />;
+  if (session === undefined) return <Loader />;
 
   if (session === null && pathname === "/create") router.push("/");
 

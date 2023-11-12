@@ -101,7 +101,7 @@ export default function BlogDetailsHome({ blogData }: { blogData: Blog }) {
                       />
                     </div>
                   </div>
-                  <p className="mb-8 leading-relaxed text-base font-medium text-body-color sm:text-lg lg:text-base xl:text-lg">
+                  <p className="mb-8 leading-relaxed text-base font-medium text-body-color sm:text-lg lg:text-base xl:text-lg" style={{ wordWrap: 'break-word' }}>
                     {blogData?.description}
                   </p>
                 </div>
@@ -112,7 +112,7 @@ export default function BlogDetailsHome({ blogData }: { blogData: Blog }) {
                 <>
                   <input
                     name="comment"
-                    id="comment"
+                    id="comment"  
                     autoFocus
                     autoComplete="off"
                     placeholder="Add comment here"

@@ -16,11 +16,6 @@ export async function GET(req: NextRequest) {
                   contains: extractQuery || "",
                 },
               },
-              {
-                description: {
-                  contains: extractQuery || "",
-                },
-              },
             ],
           },
         });

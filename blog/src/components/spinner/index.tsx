@@ -1,16 +1,15 @@
 "use client";
 
-import { ProgressBar } from "react-loader-spinner";
+import { Spinner } from "@nextui-org/react";
 
-export default function Spinner() {
+export default function Loader() {
   return (
-    <ProgressBar
-      height={"120"}
-      width={"120"}
-      ariaLabel="Common Loader"
-      borderColor="#000"
-      barColor="#fff"
-      wrapperStyle={{display: 'block', margin: 'auto'}}
-    />
+    <div className='flex space-x-2 justify-center items-center bg-white h-screen '>
+    <span className='sr-only'>Loading...</span>
+     <div className='h-6 w-6 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+   <div className='h-6 w-6 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+   <div className='h-6 w-6 bg-black rounded-full animate-bounce'></div>
+ </div>
+
   );
 }
